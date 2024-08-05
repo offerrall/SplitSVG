@@ -22,4 +22,4 @@ Este script está escrito en Python y no requiere ninguna dependencia externa. F
 Para utilizar el script, abre una terminal y ejecuta el siguiente comando:
 
 ```bash
-python extract_paths.py /ruta/al/archivo.svg
+python splitsvg.py /ruta/al/archivo.svg
