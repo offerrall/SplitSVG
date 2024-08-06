@@ -17,20 +17,20 @@ def extract_paths_from_svg(svg_file):
     svg_height = svg_attribs.get('height', '100%')
     svg_viewbox = svg_attribs.get('viewBox')
 
-    # Encuentra todos los grupos y paths dentro de los grupos
+    # Find all groups and paths within groups
     groups = root.findall('.//svg:g', ns)
 
     for i, group in enumerate(groups):
-        # Crear un nuevo elemento 'svg' con los mismos atributos que el original
+        # Create a new 'svg' element with the same attributes as the original
         new_svg = ET.Element('svg', xmlns="http://www.w3.org/2000/svg", version="1.1")
         
-        # Setear atributos importantes para la correcta visualización
+        # Set important attributes for correct display
         new_svg.set('width', svg_width)
         new_svg.set('height', svg_height)
         if svg_viewbox:
             new_svg.set('viewBox', svg_viewbox)
 
-        # Copiar el grupo de paths al nuevo SVG
+        # Copy the group of paths to the new SVG
         new_group = ET.SubElement(new_svg, 'g', attrib=group.attrib)
         
         for path in group.findall('.//svg:path', ns):
@@ -38,7 +38,7 @@ def extract_paths_from_svg(svg_file):
             path_copy.text = path.text
             new_group.append(path_copy)
         
-        # Crear un nuevo árbol de elementos y guardar el archivo SVG
+        # Create a new element tree and save the SVG file
         new_tree = ET.ElementTree(new_svg)
         output_file = os.path.join(output_dir, f"group_{i + 1}.svg")
         new_tree.write(output_file, encoding='utf-8', xml_declaration=True)
@@ -46,14 +46,14 @@ def extract_paths_from_svg(svg_file):
         print(f"Exported {output_file}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extrae todos los grupos y paths de un archivo SVG y los guarda como archivos SVG separados.")
-    parser.add_argument("svg_file", help="Ruta del archivo SVG de entrada.")
+    parser = argparse.ArgumentParser(description="Extracts all groups and paths from an SVG file and saves them as separate SVG files.")
+    parser.add_argument("svg_file", help="Path to the input SVG file.")
     
     args = parser.parse_args()
     
     if not exists(args.svg_file):
-        print("El archivo no existe.")
+        print("The file does not exist.")
     elif not args.svg_file.endswith(".svg"):
-        print("El archivo no es un SVG.")
+        print("The file is not an SVG.")
     else:
         extract_paths_from_svg(args.svg_file)

@@ -1,25 +1,55 @@
-# SVG Path Extractor
+# README
 
-Este es un sencillo script en Python que permite extraer todos los elementos `<path>` de un archivo SVG y guardarlos como archivos SVG separados. Es útil cuando necesitas desglosar un archivo SVG en sus componentes individuales para un procesamiento posterior.
+## Overview
 
-## Características
+This repository contains two Python scripts:
 
-- **Sin dependencias externas**: El script utiliza solo módulos estándar de Python (`os`, `xml.etree.ElementTree`, `argparse`).
-- **Automatización**: Crea automáticamente un directorio para los archivos SVG exportados.
-- **Simplicidad**: El uso es sencillo y directo, solo requiere la ruta al archivo SVG como argumento.
+1. **`extract_paths.py`**: Extracts all groups and paths from an SVG file and saves them as separate SVG files.
+2. **`install.py`**: Installs a context menu entry in Windows for splitting SVG files using the `extract_paths.py` script.
 
-## Requisitos
+## Requirements
 
-Este script está escrito en Python y no requiere ninguna dependencia externa. Funciona con cualquier instalación estándar de Python 3.x.
+- Python 3.x
+- `WindowsContextMenu` package (required for `install.py`)
 
-## Instalación
+## Usage
 
-1. Clona este repositorio o descarga el archivo `extract_paths.py`.
-2. Asegúrate de tener Python 3.x instalado en tu sistema.
+### `extract_paths.py`
 
-## Uso
+This script processes an SVG file to extract all groups and paths, saving them as individual SVG files.
 
-Para utilizar el script, abre una terminal y ejecuta el siguiente comando:
+#### How to Use
 
-```bash
-python splitsvg.py /ruta/al/archivo.svg
+1. Run the script from the command line:
+    ```bash
+    python extract_paths.py <path_to_svg_file>
+    ```
+2. The script will create a directory named `exported_paths` in the same location as the input SVG file. Each group of paths will be saved as a separate SVG file in this directory.
+
+### `install.py`
+
+This script installs a context menu entry in Windows that allows you to right-click on an SVG file and split it using the `extract_paths.py` script.
+
+#### How to Use
+
+1. Ensure you have the `WindowsContextMenu` package installed. If not, you can install it by running the following commands:
+    ```bash
+    git clone https://github.com/offerrall/WindowsContextMenu
+    cd WindowsContextMenu
+    pip install .
+    ```
+
+2. Run the `install.py` script as an administrator:
+    ```bash
+    python install.py
+    ```
+3. After installation, you can right-click on any `.svg` file in Windows Explorer and select "Split SVG" from the context menu to run the script.
+
+## Troubleshooting
+
+- If you receive an error about needing to run as administrator, ensure that you are running the `install.py` script with administrator privileges.
+- If the `WindowsContextMenu` package is not found, follow the installation steps in the **Usage** section.
+
+## License
+
+This project is licensed under the MIT License.
