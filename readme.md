@@ -4,8 +4,8 @@
 
 This repository contains two Python scripts:
 
-1. **`extract_paths.py`**: Extracts all groups and paths from an SVG file and saves them as separate SVG files.
-2. **`install.py`**: Installs a context menu entry in Windows for splitting SVG files using the `extract_paths.py` script.
+1. **`splitsvg.py`**: Extracts all groups and paths from an SVG file and saves them as separate SVG files.
+2. **`install.py`**: Installs a context menu entry in Windows for splitting SVG files using the `splitsvg.py` script.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ This repository contains two Python scripts:
 
 ## Usage
 
-### `extract_paths.py`
+### `splitsvg.py`
 
 This script processes an SVG file to extract all groups and paths, saving them as individual SVG files.
 
@@ -28,7 +28,7 @@ This script processes an SVG file to extract all groups and paths, saving them a
 
 ### `install.py`
 
-This script installs a context menu entry in Windows that allows you to right-click on an SVG file and split it using the `extract_paths.py` script.
+This script installs a context menu entry in Windows that allows you to right-click on an SVG file and split it using the `splitsvg.py` script.
 
 #### How to Use
 
