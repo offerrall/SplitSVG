@@ -17,26 +17,36 @@ def extract_paths_from_svg(svg_file):
     svg_height = svg_attribs.get('height', '100%')
     svg_viewbox = svg_attribs.get('viewBox')
 
-    paths = root.findall('.//svg:path', ns)
+    # Encuentra todos los grupos y paths dentro de los grupos
+    groups = root.findall('.//svg:g', ns)
 
-    for i, path in enumerate(paths):
+    for i, group in enumerate(groups):
+        # Crear un nuevo elemento 'svg' con los mismos atributos que el original
         new_svg = ET.Element('svg', xmlns="http://www.w3.org/2000/svg", version="1.1")
         
+        # Setear atributos importantes para la correcta visualización
         new_svg.set('width', svg_width)
         new_svg.set('height', svg_height)
         if svg_viewbox:
             new_svg.set('viewBox', svg_viewbox)
+
+        # Copiar el grupo de paths al nuevo SVG
+        new_group = ET.SubElement(new_svg, 'g', attrib=group.attrib)
         
-        new_svg.append(path)
+        for path in group.findall('.//svg:path', ns):
+            path_copy = ET.Element('path', attrib=path.attrib)
+            path_copy.text = path.text
+            new_group.append(path_copy)
+        
+        # Crear un nuevo árbol de elementos y guardar el archivo SVG
         new_tree = ET.ElementTree(new_svg)
-        
-        output_file = os.path.join(output_dir, f"path_{i + 1}.svg")
+        output_file = os.path.join(output_dir, f"group_{i + 1}.svg")
         new_tree.write(output_file, encoding='utf-8', xml_declaration=True)
         
         print(f"Exported {output_file}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extrae todos los paths de un archivo SVG y los guarda como archivos SVG separados.")
+    parser = argparse.ArgumentParser(description="Extrae todos los grupos y paths de un archivo SVG y los guarda como archivos SVG separados.")
     parser.add_argument("svg_file", help="Ruta del archivo SVG de entrada.")
     
     args = parser.parse_args()
