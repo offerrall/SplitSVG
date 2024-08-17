@@ -22,7 +22,7 @@ This script processes an SVG file to extract all groups and paths, saving them a
 
 1. Run the script from the command line:
     ```bash
-    python extract_paths.py <path_to_svg_file>
+    python splitsvg.py <path_to_svg_file>
     ```
 2. The script will create a directory named `exported_paths` in the same location as the input SVG file. Each group of paths will be saved as a separate SVG file in this directory.
 
